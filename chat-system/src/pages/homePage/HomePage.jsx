@@ -1,5 +1,9 @@
 import React, { useRef } from "react";
 import "./HomePage.styles.css";
+import {Container} from "reactstrap";
+import SignUpForm from "./components/SignUpForm.jsx";
+import SignInForm from "./components/SignInForm.jsx";
+import AuthOverlay from "./components/AuthOverlay.jsx";
 
 HomePage.propTypes = {};
 
@@ -13,6 +17,18 @@ function HomePage(props) {
   const handleSignInBtn = (e) => {
     containerRef.current.classList.remove("right-panel-active");
   };
+
+  // return (
+  //     <Container className="container" id="container" ref={containerRef}>
+  //       <div className="form-container sign-up-container">
+  //         <SignUpForm />
+  //       </div>
+  //       <div className="form-container sign-in-container">
+  //         <SignInForm />
+  //       </div>
+  //       <AuthOverlay handleSignInBtn={handleSignInBtn} handleSignUpBtn={handleSignUpBtn} />
+  //     </Container>
+  // );
 
   return (
     <div ref={containerRef} className="container" id="container">

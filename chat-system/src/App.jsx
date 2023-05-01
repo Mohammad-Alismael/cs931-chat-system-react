@@ -1,14 +1,17 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/homePage/HomePage.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <HomePage/>
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/chat" element={<HomePage />} />
+      <Route path="/settings" element={<HomePage />} />
+    </Routes>
+  );
 }
 
 export default App;
