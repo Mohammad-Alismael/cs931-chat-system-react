@@ -1,46 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Col, Container, Row } from "reactstrap";
+import {
+  Col,
+  Container,
+  Offcanvas,
+  OffcanvasBody,
+  OffcanvasHeader,
+  Row,
+} from "reactstrap";
 import SearchBar from "./components/SearchBar.jsx";
 import UserChatCard from "../../components/userCards/UserChatCard.jsx";
 import ChatHeader from "./components/ChatHeader.jsx";
 import SendBar from "./components/SendBar.jsx";
 import styles from "./page.module.css";
+import ChatBody from "./components/chatBody/ChatBody.jsx";
 
 ChatPage.propTypes = {};
 
+function Chats() {
+  return (
+    <Row>
+      <h4 className={styles.header}>Chats</h4>
+      <Col style={{height: '195px',overflowY: 'scroll'}}>
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+      </Col>
+    </Row>
+  );
+}
+
+function Contacts() {
+  return (
+    <Row>
+      <h4 className={styles.header}>Contacts</h4>
+      <Col style={{height: '250px',overflowY: 'scroll'}}>
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+        <UserChatCard />
+      </Col>
+    </Row>
+  );
+}
+
 function ChatPage(props) {
+  const [openUserProfile, setOpenUserProfile] = useState(false);
   return (
     <Container>
       <Row>
         <Col xs={4} className="bg-light border">
           <SearchBar />
-          <Row>
-            <h4 className={styles.header}>Chats</h4>
-            <Col>
-              <UserChatCard />
-              <UserChatCard />
-              <UserChatCard />
-            </Col>
-          </Row>
-          <Row>
-            <h4 className={styles.header}>Contacts</h4>
-            <Col>
-              <UserChatCard />
-              <UserChatCard />
-              <UserChatCard />
-            </Col>
-          </Row>
+          <Chats />
+          <Contacts />
         </Col>
         <Col xs={8} className="bg-light border">
           <Row>
-            <ChatHeader />
+            <Col xs={12} className="">
+              <ChatHeader />
+            </Col>
           </Row>
           <Row>
-            <ChatHeader />
+            <Col xs={12}>
+              <ChatBody />
+            </Col>
           </Row>
           <Row>
-            <SendBar />
+            <Col xs={12} xl={12} md={12}>
+              <SendBar />
+            </Col>
           </Row>
         </Col>
       </Row>
