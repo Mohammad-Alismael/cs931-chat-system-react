@@ -1,10 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-ChatHeader.propTypes = {
-    
-};
-
 function ChatHeader(props) {
     return (
         <div></div>
