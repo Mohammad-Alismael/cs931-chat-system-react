@@ -1,20 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import styles from "./ChatBody.module.css";
-ChatBody.propTypes = {
-    
-};
+import Sender from "../../../../components/messageContainer/sender/sender.jsx";
+import Recipient from "../../../../components/messageContainer/recipient/recipient.jsx";
+ChatBody.propTypes = {};
 
 function ChatBody(props) {
-    return (
-        <div className={styles.container}>
-            bla bla bla
-            balv
-            bla
-            bla
-            bl
-        </div>
-    );
+  return (
+    <div className={styles.container}>
+      <Sender />
+      <Sender />
+      <Sender />
+      <Recipient />
+      <Recipient />
+      <Sender />
+      <Sender />
+      <Sender />
+      <Sender />
+      <Recipient />
+      <Recipient />
+      <Sender />
+      <Sender />
+      <Sender />
+      <Sender />
+      <Recipient />
+      <Recipient />
+      <Sender />
+    </div>
+  );
 }
 
 export default ChatBody;

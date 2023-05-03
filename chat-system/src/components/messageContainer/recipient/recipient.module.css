@@ -1,0 +1,14 @@
+.container {
+    display: inline-block;
+    align-self: flex-end;
+    max-width: 70%;
+    padding: 0.4rem;
+    margin-bottom: 10px;
+    background-color: #f84a00;
+    color: #fff;
+    border-radius: 7px;
+}
+
+.container > span{
+    font-size: 14px;
+}
