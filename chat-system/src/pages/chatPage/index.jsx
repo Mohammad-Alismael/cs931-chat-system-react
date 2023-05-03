@@ -61,17 +61,17 @@ function ChatPage(props) {
         </Col>
         <Col xs={8} className="bg-light border">
           <Row>
-            <Col xs={12} className="">
+            <Col xs={12} style={{background: 'rgb(238, 238, 238)'}}>
               <ChatHeader />
             </Col>
           </Row>
           <Row>
-            <Col xs={12}>
+            <Col xs={12} style={{background: 'rgb(238, 238, 238)'}}>
               <ChatBody />
             </Col>
           </Row>
           <Row>
-            <Col xs={12} xl={12} md={12}>
+            <Col xs={12} style={{background: 'rgb(238, 238, 238)'}}>
               <SendBar />
             </Col>
           </Row>

@@ -1,13 +1,18 @@
 .container {
-  margin: 0.5rem 0;
+  margin: 0.6rem 0;
+  padding: 0.4rem;
   position: relative;
   display: flex;
   align-items: center;
   border-radius: 0.7rem;
+  cursor: pointer;
 }
 
-.active{
-    background: linear-gradient(to right, #f84a00, #fdce00);
+.active {
+  background-color: #f84a00;
+  background-image: linear-gradient(to right, #f84a00, #fdce00);
+  transition: background-color 0.5s ease-in-out;
+  color: #dddddd;
 }
 
 .container:hover {
