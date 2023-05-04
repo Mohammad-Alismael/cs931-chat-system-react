@@ -22,6 +22,7 @@ import styles from "./page.module.css";
 import ChatBody from "./components/chatBody/ChatBody.jsx";
 import Avatar from "../../components/avatar/Avatar.jsx";
 import {BiUser, FaEnvelope, FaUser, MdNotificationsNone, RiDeleteBin6Line} from "react-icons/all.js";
+import {useNavigate} from "react-router-dom";
 
 ChatPage.propTypes = {};
 
@@ -58,7 +59,8 @@ function Contacts() {
 }
 
 function ChatPage(props) {
-  const [openUserProfile, setOpenUserProfile] = useState(true);
+  const navigate = useNavigate();
+  const [openUserProfile, setOpenUserProfile] = useState(false);
   const openSettings = () => {
     setOpenUserProfile(!openUserProfile);
   };
@@ -89,7 +91,7 @@ function ChatPage(props) {
                     <MdNotificationsNone size={25} className="mr-2" />
                     <sapn className="px-2">Notification</sapn>
                   </ListGroupItem>
-                  <ListGroupItem>
+                  <ListGroupItem onClick={()=>(navigate('/friends'))}>
                     <BiUser size={25} />
                     <sapn className="px-2">Invite Friends</sapn>
                   </ListGroupItem>

@@ -1,0 +1,19 @@
+.searchContainer {
+  width: 79.5%;
+  position: absolute;
+  z-index: 9999;
+  height: 200px;
+  overflow-y: scroll;
+  background-color: #e1e1e1;
+  border-radius: 7px 7px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/*.searchContainer > div {*/
+/*  float: left;*/
+/*  display: block;*/
+/*}*/
