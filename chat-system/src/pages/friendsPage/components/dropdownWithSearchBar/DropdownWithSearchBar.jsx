@@ -50,9 +50,9 @@ const DropdownWithSearchBar = () => {
           {
             filteredDropdownItems.map((val,index)=>{
               return (
-                  <div style={{ background: "#F5F5F5",display: 'block',width: '100%'}}>
+                  <div className="d-flex align-items-center bg-light p-1 rounded" style={{ width: '100%' }}>
                     <Avatar imageUrl="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60" />
-                    <span>{val.name}</span>
+                    <span className='px-3'>{val.name}</span>
                   </div>
               )
             })

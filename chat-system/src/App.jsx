@@ -8,11 +8,13 @@ import FriendsPage from "./pages/friendsPage/index.jsx";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/chat" element={<ChatPage />} />
-      <Route path="/friends" element={<FriendsPage />} />
-    </Routes>
+      <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/chat" element={<ChatPage />}>
+              <Route path=':chat_id' element={<p>This is the chat page</p>} />
+          </Route>
+          <Route path="/friends" element={<FriendsPage />} />
+      </Routes>
   );
 }
 

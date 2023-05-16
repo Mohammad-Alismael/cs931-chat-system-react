@@ -31,10 +31,38 @@ function Friend(props) {
         <Button size="sm" style={buttonStyle}>
           Confirm
         </Button>
-        <Button size="sm" style={{ color: '#000',background: "rgba(229,229,235,1)",borderColor: 'rgba(229,229,235,1)' }}>Remove</Button>
+        <Button
+          size="sm"
+          style={{
+            color: "#000",
+            background: "rgba(229,229,235,1)",
+            borderColor: "rgba(229,229,235,1)",
+          }}
+        >
+          Remove
+        </Button>
       </div>
     </div>
   );
 }
 
+const Accepted = ({ username }) => {
+  return (
+    <div
+      className="d-flex align-items-center justify-content-between rounded my-1 p-2"
+      style={{ background: "#F5F5F5", height: '55px' }}
+    >
+      <div className="d-flex align-items-center">
+        <Avatar imageUrl="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60" />
+        <div className="px-4">
+          <p className="m-0 p-0">
+            <b>{username}</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+Friend.Accepted = Accepted;
 export default Friend;

@@ -21,8 +21,47 @@ import DropdownWithSearchBar from "./components/dropdownWithSearchBar/DropdownWi
 
 FriendsPage.propTypes = {};
 
+function FriendsTab({ data }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const filteredDropdownItems = data.filter((item) =>
+    item.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  return (
+    <Row>
+      <Row className="my-4 mx-1">
+        <Input
+          onChange={handleSearch}
+          className="m-0 border-1"
+          style={{ width: "99%" }}
+          type="text"
+          placeholder="Type your Friend's username ..."
+        />
+      </Row>
+      <Row className="mx-1" style={{ alignContent: 'flex-start',height: "480px", overflowY: "scroll" }}>
+        {filteredDropdownItems.map(({ username }, index) => {
+          return <Friend.Accepted key={index} username={username} />;
+        })}
+      </Row>
+    </Row>
+  );
+}
+
 function FriendsPage(props) {
   const [activeTab, setActiveTab] = useState("1");
+  const [accpetedFriendRequest, setAccpetedFriendRequest] = useState([
+    {
+      username: "mhd",
+    },
+    {
+      username: "ahmed",
+    },
+    {
+      username: "zak",
+    },
+  ]);
   return (
     <Container>
       <Nav tabs>
@@ -60,7 +99,14 @@ function FriendsPage(props) {
                   <DropdownWithSearchBar />
                 </Col>
                 <Col xs={2} className="d-flex align-items-center">
-                  <Button>Add Friend</Button>
+                  <Button
+                    style={{
+                      background: "linear-gradient(to right, #f84a00, #fdce00)",
+                      border: "none",
+                    }}
+                  >
+                    Add Friend
+                  </Button>
                 </Col>
               </Row>
               <Row
@@ -84,26 +130,13 @@ function FriendsPage(props) {
           </Row>
         </TabPane>
         <TabPane tabId="2">
+          <FriendsTab data={accpetedFriendRequest} />
+        </TabPane>
+
+        <TabPane tabId="3">
           <Row>
-            <Col sm="6">
-              <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </CardText>
-                <Button>Go somewhere</Button>
-              </Card>
-            </Col>
-            <Col sm="6">
-              <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </CardText>
-                <Button>Go somewhere</Button>
-              </Card>
+            <Col>
+              <h3>Coming soon, we are working on it</h3>
             </Col>
           </Row>
         </TabPane>
