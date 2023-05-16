@@ -1,56 +1,82 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import React from "react";
+import React, { useState } from "react";
+import { handleLogin, handleSignUp } from "../../../lib/user.js";
+import { toast } from "react-toastify";
 
 const SignUpForm = () => {
+  const [user, setUser] = useState({
+    displayName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    description: "",
+  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      user.displayName === "" ||
+      user.email === "" ||
+      user.password === "" ||
+      user.confirmPassword === ""
+    ) {
+      toast("Please fill in all required fields");
+      return; // Exit the function if any field is empty
+    }
+
+    if (user.password !== user.confirmPassword)
+      toast("password and confirm password don't match");
+    const submittedObject = user;
+    delete submittedObject.confirmPassword;
+    handleSignUp(submittedObject).then(()=>{
+        setUser({
+            displayName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            description: "",
+        })
+    });
+  };
+  const handleValue = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
   return (
-    <form action="#">
+    <form>
       <h1>Create Account</h1>
       <span>or use your email for registration</span>
-      <input type="text" placeholder="Name" />
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
-      <input type="password" placeholder="Confirm Password" />
-      <input type="textarea" placeholder="Tell Us More About Yourself" />
-      <button>Sign Up</button>
+      <input
+        onChange={handleValue}
+        name="displayName"
+        type="text"
+        placeholder="Display Name"
+      />
+      <input
+        onChange={handleValue}
+        name="email"
+        type="email"
+        placeholder="Email"
+      />
+      <input
+        onChange={handleValue}
+        name="password"
+        type="password"
+        placeholder="Password"
+      />
+      <input
+        onChange={handleValue}
+        name="confirmPassword"
+        type="password"
+        placeholder="Confirm Password"
+      />
+      <input
+        onChange={handleValue}
+        name="description"
+        type="textarea"
+        placeholder="Tell Us More About Yourself"
+      />
+      <button onClick={handleSubmit}>Sign Up</button>
     </form>
   );
-  // return (
-  //   <Form>
-  //     <h1>Create Account</h1>
-  //     <span>or use your email for registration</span>
-  //     <FormGroup>
-  //       <Input type="text" name="name" id="name" placeholder="Name" />
-  //     </FormGroup>
-  //     <FormGroup>
-  //       <Input type="email" name="email" id="email" placeholder="Email" />
-  //     </FormGroup>
-  //     <FormGroup>
-  //       <Input
-  //         type="password"
-  //         name="password"
-  //         id="password"
-  //         placeholder="Password"
-  //       />
-  //     </FormGroup>
-  //     <FormGroup>
-  //       <Input
-  //         type="password"
-  //         name="confirmPassword"
-  //         id="confirmPassword"
-  //         placeholder="Confirm Password"
-  //       />
-  //     </FormGroup>
-  //     <FormGroup>
-  //       <Input
-  //         type="textarea"
-  //         name="textarea"
-  //         id="textarea"
-  //         placeholder="ell Us More About Yourself"
-  //       />
-  //     </FormGroup>
-  //     <Button>Sign Up</Button>
-  //   </Form>
-  // );
 };
 
 export default SignUpForm;

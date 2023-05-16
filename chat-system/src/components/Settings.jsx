@@ -17,8 +17,15 @@ import {
   MdNotificationsNone,
   RiDeleteBin6Line,
 } from "react-icons/all.js";
+import {useNavigate} from "react-router-dom";
 
 function Settings(props) {
+  const navigate = useNavigate()
+
+  const logout = (e) => {
+    e.preventDefault()
+    navigate('/')
+  }
   return (
     <Offcanvas isOpen={props.open} toggle={props.toggle}>
       <OffcanvasHeader toggle={props.toggle}>User Settings</OffcanvasHeader>
@@ -53,7 +60,7 @@ function Settings(props) {
             </ListGroupItem>
           </ListGroup>
         </div>
-        <Button className="mt-4">Logout</Button>
+        <Button className="mt-4" onClick={logout}>Logout</Button>
       </OffcanvasBody>
     </Offcanvas>
   );

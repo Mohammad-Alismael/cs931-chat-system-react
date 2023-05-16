@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "mhd",
+      "email": "example@gmail.com",
+      "password": "12345",
+      "description": "my name is mohammad"
+    },
+    {
+      "id": 1684262181070,
+      "displayName": "hi",
+      "email": "hi@gmail.com",
+      "password": "123",
+      "description": "hrllo"
+    },
+    {
+      "id": 1684262608484,
+      "displayName": "hhhhh",
+      "email": "hh@gmail.com",
+      "password": "123",
+      "description": "nn"
+    }
+  ],
+  "chats": [
+    {
+      "chat-id": "asd",
+      "title": "hey yoo"
+    }
+  ],
+  "friend-request": [
+    {
+      "id": 1,
+      "sender_id": 1,
+      "recipient_id": 2,
+      "status": "pending"
+    }
+  ]
+}

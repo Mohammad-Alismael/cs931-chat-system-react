@@ -1,36 +1,52 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import {handleLogin} from "../../../lib/user.js";
+import {useNavigate} from "react-router-dom";
 
 const SignInForm = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
+      e.preventDefault()
+      handleLogin(user).then(()=>{
+          setUser({
+              email: "",
+              password: "",
+          })
+          navigate('/chat')
+      }).catch((error)=>{
+          toast.error(error.message);
+      })
+  };
+
+  const handleValue = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
   return (
-    <form action="#">
+    <form>
       <h1>Sign in</h1>
       <span>or use your account</span>
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
+      <input
+        onChange={handleValue}
+        name="email"
+        type="email"
+        placeholder="Email"
+      />
+      <input
+        onChange={handleValue}
+        name="password"
+        type="password"
+        placeholder="Password"
+      />
       <a href="#">Forgot your password?</a>
-      <button>Sign In</button>
+      <button onClick={handleSubmit}>Sign In</button>
     </form>
   );
-  // return (
-  //   <Form>
-  //     <h1>Sign in</h1>
-  //     <span>or use your account</span>
-  //     <FormGroup>
-  //       <Input type="email" name="email" id="email" placeholder="Email" />
-  //     </FormGroup>
-  //     <FormGroup>
-  //       <Input
-  //         type="password"
-  //         name="password"
-  //         id="password"
-  //         placeholder="Password"
-  //       />
-  //     </FormGroup>
-  //     <a href="#">Forgot your password?</a>
-  //     <Button>Sign In</Button>
-  //   </Form>
-  // );
 };
 
 export default SignInForm;
