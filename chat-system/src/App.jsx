@@ -5,15 +5,16 @@ import "./App.css";
 import HomePage from "./pages/homePage/index.jsx";
 import ChatPage from "./pages/chatPage/index.jsx";
 import FriendsPage from "./pages/friendsPage/index.jsx";
+import ChatLayout from "./layouts/ChatLayout.jsx";
 
 function App() {
   return (
       <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/chat" element={<ChatPage />}>
-              <Route path=':chat_id' element={<p>This is the chat page</p>} />
+          <Route path="/chat" element={<ChatLayout />}>
+              <Route index path=':chat_id' element={<ChatPage />} />
           </Route>
-          <Route path="/friends" element={<FriendsPage />} />
+          <Route path="friends" element={<FriendsPage />} />
       </Routes>
   );
 }

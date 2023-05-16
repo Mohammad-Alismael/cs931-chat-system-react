@@ -1,7 +1,7 @@
 import React from "react";
-import Avatar from "../../../components/avatar/Avatar.jsx";
 import { BsSearch, BsThreeDotsVertical, BsCameraVideo } from "react-icons/bs";
 import {IoCallOutline} from "react-icons/all.js";
+import Avatar from "../../../../components/avatar/Avatar.jsx";
 
 function ChatHeader(props) {
   return (
