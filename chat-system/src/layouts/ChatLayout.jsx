@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -15,33 +15,53 @@ import {
   Row,
 } from "reactstrap";
 import SearchBar from "../pages/chatPage/components/SearchBar.jsx";
-import Avatar from "../components/avatar/Avatar.jsx";
-import {BiUser, MdNotificationsNone, RiDeleteBin6Line} from "react-icons/all.js";
-import {Outlet, useNavigate} from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Settings from "../components/Settings.jsx";
 import Contacts from "../components/Contacts.jsx";
-import Chats from "../components/Chats.jsx";
+import GlobalContext from "../utils/context/globalContext.jsx";
+import Drawer from "../components/drawer/Drawer.jsx";
+import Chats from "../components/chats/Chats.jsx";
 
 ChatLayout.propTypes = {};
 
 function ChatLayout(props) {
+  const { isOpen, openUserProfile, toggleSettings } = useContext(GlobalContext);
   const navigate = useNavigate();
-  const [openUserProfile, setOpenUserProfile] = useState(false);
-  const openSettings = () => {
-    setOpenUserProfile(!openUserProfile);
-  };
   return (
-      <Container>
-        <Row>
-          <Col xs={4} className="bg-light border">
-            <SearchBar openSettings={openSettings}/>
-            <Chats/>
-            <Contacts/>
-            <Settings open={openUserProfile} toggle={openSettings} onClick={() => (navigate('/friends'))}/>
-          </Col>
+    <Container>
+      <Row>
+        <Col
+          xs={0}
+          sm={4}
+          md={4}
+          lg={4}
+          xl={4}
+          xxl={4}
+          className="d-none d-sm-block bg-light border"
+        >
+          <SearchBar openSettings={toggleSettings} />
+          <Chats />
+          <Contacts />
+          <Settings
+            open={openUserProfile}
+            toggle={toggleSettings}
+            onClick={() => navigate("/friends")}
+          />
+        </Col>
+        <Col
+          xs={12}
+          sm={8}
+          md={8}
+          lg={8}
+          xl={8}
+          xxl={8}
+          className="bg-light border"
+        >
           <Outlet />
-        </Row>
-      </Container>
+          <Drawer />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

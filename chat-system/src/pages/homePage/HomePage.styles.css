@@ -88,7 +88,7 @@ input {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 982px;
+  width: 1000px;
   max-width: 100%;
   min-height: 580px;
 }
@@ -109,6 +109,9 @@ input {
   }
   .container-mobile {
     display: block;
+  }
+  .container{
+    width: auto;
   }
 }
 

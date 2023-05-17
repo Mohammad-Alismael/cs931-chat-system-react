@@ -8,10 +8,11 @@ import ChatPage from "./pages/chatPage/index.jsx";
 import FriendsPage from "./pages/friendsPage/index.jsx";
 import ChatLayout from "./layouts/ChatLayout.jsx";
 import { ToastContainer } from "react-toastify";
+import {GlobalProvider} from "./utils/context/globalContext.jsx";
 
 function App() {
   return (
-    <>
+    <GlobalProvider>
       <ToastContainer />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -20,7 +21,7 @@ function App() {
         </Route>
         <Route path="friends" element={<FriendsPage />} />
       </Routes>
-    </>
+    </GlobalProvider>
   );
 }
 

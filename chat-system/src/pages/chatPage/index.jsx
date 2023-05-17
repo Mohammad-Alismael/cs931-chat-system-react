@@ -21,7 +21,7 @@ import {
   MdNotificationsNone,
   RiDeleteBin6Line,
 } from "react-icons/all.js";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ChatHeader from "./components/chatHeader/ChatHeader.jsx";
 import ChatBody from "./components/chatBody/ChatBody.jsx";
 import SendBar from "./components/SendBar.jsx";
@@ -29,10 +29,9 @@ import SendBar from "./components/SendBar.jsx";
 ChatPage.propTypes = {};
 
 function ChatPage(props) {
-  const {chat_id} = useParams()
-  alert(chat_id)
+  const { chat_id } = useParams();
   return (
-    <Col xs={8} className="bg-light border">
+    <div>
       <Row>
         <Col xs={12} style={{ background: "rgb(238, 238, 238)" }}>
           <ChatHeader />
@@ -48,7 +47,7 @@ function ChatPage(props) {
           <SendBar />
         </Col>
       </Row>
-    </Col>
+    </div>
   );
 }
 

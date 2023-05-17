@@ -40,7 +40,14 @@ function FriendsTab({ data }) {
           placeholder="Type your Friend's username ..."
         />
       </Row>
-      <Row className="mx-1" style={{ alignContent: 'flex-start',height: "480px", overflowY: "scroll" }}>
+      <Row
+        className="mx-1"
+        style={{
+          alignContent: "flex-start",
+          height: "480px",
+          overflowY: "scroll",
+        }}
+      >
         {filteredDropdownItems.map(({ username }, index) => {
           return <Friend.Accepted key={index} username={username} />;
         })}
@@ -81,24 +88,27 @@ function FriendsPage(props) {
             Friends
           </NavLink>
         </NavItem>
-        <NavItem>
-          <NavLink
-            className={activeTab == "3" ? "active" : ""}
-            onClick={() => setActiveTab("3")}
-          >
-            Friends you may know
-          </NavLink>
-        </NavItem>
+        {/*<NavItem>*/}
+        {/*  <NavLink*/}
+        {/*    className={activeTab == "3" ? "active" : ""}*/}
+        {/*    onClick={() => setActiveTab("3")}*/}
+        {/*  >*/}
+        {/*    Friends you may know*/}
+        {/*  </NavLink>*/}
+        {/*</NavItem>*/}
       </Nav>
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
           <Row>
-            <Col sm="12">
-              <Row className="my-2 p-2">
-                <Col xs={10}>
+            <Col>
+
+              <Row
+                  className="my-2 p-2"
+              >
+                <Col xs={7} md={10}>
                   <DropdownWithSearchBar />
                 </Col>
-                <Col xs={2} className="d-flex align-items-center">
+                <Col xs={5} md={2} className="d-flex align-items-center">
                   <Button
                     style={{
                       background: "linear-gradient(to right, #f84a00, #fdce00)",
@@ -111,18 +121,12 @@ function FriendsPage(props) {
               </Row>
               <Row
                 className="mx-1"
-                style={{ height: "480px", overflowY: "scroll" }}
+                style={{
+                  height: "480px",
+                  overflowY: "scroll",
+                  alignContent: "flex-start",
+                }}
               >
-                <Friend />
-                <Friend />
-                <Friend />
-                <Friend />
-                <Friend />
-                <Friend />
-                <Friend />
-                <Friend />
-                <Friend />
-                <Friend />
                 <Friend />
                 <Friend />
               </Row>
@@ -133,13 +137,13 @@ function FriendsPage(props) {
           <FriendsTab data={accpetedFriendRequest} />
         </TabPane>
 
-        <TabPane tabId="3">
-          <Row>
-            <Col>
-              <h3>Coming soon, we are working on it</h3>
-            </Col>
-          </Row>
-        </TabPane>
+        {/*<TabPane tabId="3">*/}
+        {/*  <Row>*/}
+        {/*    <Col>*/}
+        {/*      <h3>Coming soon, we are working on it</h3>*/}
+        {/*    </Col>*/}
+        {/*  </Row>*/}
+        {/*</TabPane>*/}
       </TabContent>
     </Container>
   );

@@ -44,6 +44,7 @@ const DropdownWithSearchBar = () => {
         value={searchTerm}
         onChange={handleSearch}
         placeholder="Search..."
+        // className={styles.searchBar}
       />
       {searchTerm !== '' ? (
         <div className={styles.searchContainer}>
