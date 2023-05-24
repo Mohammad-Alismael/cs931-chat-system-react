@@ -64,6 +64,21 @@ To run the Social Networking App locally, follow these steps:
 2. Install the necessary dependencies.
 3. Configure the database and environment variables.
 4. Run the application using the provided commands.
+```
+   npm run dev
+```
+You will get the generated link inside the command line.
+### Server
+To run the fake express server you to go to 'FakeServer' folder then run the following command
+```
+json-server --watch FakeServer/db.json
+```
+```
+cd FakeServer
+```
+```
+   nodemon server.js
+```
 
 ## License
 

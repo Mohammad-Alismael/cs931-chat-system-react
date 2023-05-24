@@ -24,16 +24,22 @@
   ],
   "chats": [
     {
-      "chat-id": "asd",
-      "title": "hey yoo"
+      "id": "asd",
+      "participants": []
     }
   ],
-  "friend-request": [
+  "friendRequests": [
     {
       "id": 1,
       "sender_id": 1,
       "recipient_id": 2,
       "status": "pending"
+    },
+    {
+      "id": 1684918175113,
+      "sender_id": 1,
+      "recipient_id": 1684262181070,
+      "status": "rejected"
     }
   ]
 }
