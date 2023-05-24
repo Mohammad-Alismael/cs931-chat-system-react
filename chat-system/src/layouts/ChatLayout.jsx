@@ -1,4 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -21,12 +27,39 @@ import Contacts from "../components/Contacts.jsx";
 import GlobalContext from "../utils/context/globalContext.jsx";
 import Drawer from "../components/drawer/Drawer.jsx";
 import Chats from "../components/chats/Chats.jsx";
+import { getContacts } from "../lib/contacts.js";
+import { fetchChatsByUserId } from "../lib/chats.js";
+import { AppContext, AppProvider } from "../utils/context/AppContext.jsx";
 
 ChatLayout.propTypes = {};
-
 function ChatLayout(props) {
+  const { user } = useContext(GlobalContext);
+  const { setContacts, setChats } = useContext(AppContext);
+
   const { isOpen, openUserProfile, toggleSettings } = useContext(GlobalContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  // Example action dispatches
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const chatData = await fetchChatsByUserId(user.uid);
+        const contactData = await getContacts(user.uid);
+        setChats(chatData);
+        setContacts(contactData);
+        setLoading(true);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(true);
+      }
+    };
+
+    fetchData().then(console.log);
+  }, []);
+
+  if (!loading) return <p style={{ color: "#fff" }}>loading ...</p>;
   return (
     <Container>
       <Row>

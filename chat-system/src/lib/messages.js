@@ -4,12 +4,13 @@ const createMessage = async (conversation_id, sender_id, text, created_at) => {
   try {
     const response = await api.post("/messages", {
       conversation_id,
-      sender_id,
+      sender_id: parseInt(sender_id),
       text,
       created_at,
     });
 
     console.log("New message created:", response.data);
+    return response.data
   } catch (error) {
     console.error("Error creating new message:", error);
   }
@@ -25,6 +26,7 @@ const getMessagesByConversationId = async (conversation_id) => {
 
     const messages = response.data;
     console.log("Messages:", messages);
+    return messages
   } catch (error) {
     console.error("Error retrieving messages:", error);
   }

@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import GlobalContext from "../../../../utils/context/globalContext.jsx";
 
-function ChatHeader(props) {
+function ChatHeader({username}) {
   const {toggleDrawer} = useContext(GlobalContext)
 
   const [isOpen, setIsOpen] = React.useState(false);
@@ -30,7 +30,7 @@ function ChatHeader(props) {
           style={{ textAlign: "left", paddingLeft: "1rem" }}
         >
           <p className="p-0 m-0 text-left">
-            <b>Gavin Griffith</b>
+            <b>{username}</b>
           </p>
           <span className="p-0 m-0">online</span>
         </div>

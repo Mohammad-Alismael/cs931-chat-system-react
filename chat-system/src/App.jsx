@@ -8,7 +8,8 @@ import ChatPage from "./pages/chatPage/index.jsx";
 import FriendsPage from "./pages/friendsPage/index.jsx";
 import ChatLayout from "./layouts/ChatLayout.jsx";
 import { ToastContainer } from "react-toastify";
-import {GlobalProvider} from "./utils/context/globalContext.jsx";
+import { GlobalProvider } from "./utils/context/globalContext.jsx";
+import { AppProvider } from "./utils/context/AppContext.jsx";
 
 function App() {
   return (
@@ -16,7 +17,14 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/chat" element={<ChatLayout />}>
+        <Route
+          path="/chat"
+          element={
+            <AppProvider>
+              <ChatLayout />
+            </AppProvider>
+          }
+        >
           <Route index path=":chat_id" element={<ChatPage />} />
         </Route>
         <Route path="friends" element={<FriendsPage />} />

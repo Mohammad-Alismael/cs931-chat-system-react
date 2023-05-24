@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import { Button, Input } from "reactstrap";
 import { BsMic, BsUpload } from "react-icons/bs";
@@ -15,7 +15,8 @@ const buttonHoverStyle = {
   background: "linear-gradient(to right, #fdce00, #f84a00)", // Swap gradient colors
 };
 
-function SendBar(props) {
+function SendBar({send}) {
+  const [msg,setMsg] = useState("")
   return (
     <div
       className="d-flex align-items-center justify-content-around gap-3 p-2 m-2 rounded shadow"
@@ -25,18 +26,13 @@ function SendBar(props) {
         className="m-0 border-0"
         type="text"
         placeholder="Type your message..."
+        onChange={(e)=>(setMsg(e.target.value))}
       />
       <BsMic size={35} />
       <BsUpload size={35} />
       <Button
         style={buttonStyle}
-        onMouseEnter={() => {
-          Object.assign(buttonStyle, buttonHoverStyle);
-        }}
-        onMouseLeave={() => {
-          buttonStyle.background =
-            "linear-gradient(to right, #f84a00, #fdce00)";
-        }}
+        onClick={()=>(send(msg))}
       >
         send
       </Button>

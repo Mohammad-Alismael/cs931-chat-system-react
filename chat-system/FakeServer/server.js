@@ -77,13 +77,13 @@ server.post("/friends/request", (req, res) => {
   };
 
   router.db.get("friendRequests").push(newFriendRequest).write();
-  const recipient = router.db.get("users").find({ id: recipient_id }).value()
+  const recipient = router.db.get("users").find({ id: recipient_id }).value();
   res.json({
     message: "Friend request created",
     friendRequest: {
       id: newFriendRequest.id,
       recipient,
-      status: newFriendRequest.status
+      status: newFriendRequest.status,
     },
   });
 });
@@ -92,9 +92,9 @@ server.delete("/friends/request/:id", (req, res) => {
   const requestId = parseInt(req.params.id);
 
   const friendRequest = router.db
-      .get("friendRequests")
-      .find({ id: requestId })
-      .value();
+    .get("friendRequests")
+    .find({ id: requestId })
+    .value();
 
   if (friendRequest) {
     router.db.get("friendRequests").remove({ id: requestId }).write();
@@ -104,7 +104,6 @@ server.delete("/friends/request/:id", (req, res) => {
     res.status(404).json({ error: "Friend request not found" });
   }
 });
-
 
 server.get("/friends/request", (req, res) => {
   const { user_id, status } = req.query;
@@ -210,7 +209,6 @@ server.put("/friends/request/accept", (req, res) => {
     friendRequest.status = "accepted";
     router.db.get("friendRequests").write();
 
-
     res.json({ message: "Friend request accepted", id: friendRequest.id });
   } else {
     res.status(404).json({ error: "Friend request not found" });
@@ -251,18 +249,66 @@ server.post("/chats", (req, res) => {
 
   res.json(newChat);
 });
+// server.get("/chats", (req, res) => {
+//   const { user_id } = req.query;
+//
+//   // Retrieve chats that contain the specified user_id in participants array
+//   const chats = router.db
+//     .get("chats")
+//     .filter((chat) =>
+//       chat.participants.some(
+//         (participant) => participant.user_id === parseInt(user_id)
+//       )
+//     )
+//     .value();
+//
+//   res.json(chats);
+// });
+
 server.get("/chats", (req, res) => {
   const { user_id } = req.query;
+  console.log({ user_id });
 
-  // Retrieve chats that contain the specified user_id in participants array
   const chats = router.db
     .get("chats")
-    .filter((chat) =>
-      chat.participants.some(
-        (participant) => participant.user_id === parseInt(user_id)
-      )
-    )
+    .filter((chat) => chat.participants.includes(parseInt(user_id)))
+    .map((chat) => {
+      const otherParticipants = chat.participants
+        .filter((participantId) => participantId !== parseInt(user_id))
+        .map((participantId) =>
+          router.db.get("users").find({ id: participantId }).value()
+        );
+
+      return {
+        id: chat.id,
+        participants: otherParticipants,
+      };
+    })
     .value();
+
+  res.json(chats);
+});
+
+server.get("/chats/:chat_id/:user_id", (req, res) => {
+  const { chat_id,user_id } = req.params;
+  console.log({ chat_id });
+
+  const chats = router.db
+      .get("chats")
+      .filter((chat) => chat.id === chat_id)
+      .map((chat) => {
+        const otherParticipants = chat.participants
+            .filter((participantId) => participantId !== parseInt(user_id))
+            .map((participantId) =>
+                router.db.get("users").find({ id: participantId }).value()
+            );
+
+        return {
+          id: chat.id,
+          participants: otherParticipants,
+        };
+      })
+      .value();
 
   res.json(chats);
 });
@@ -272,6 +318,7 @@ server.post("/messages", (req, res) => {
   const { conversation_id, sender_id, text, created_at } = req.body;
 
   const newMessage = {
+    id: Date.now(),
     conversation_id,
     sender_id,
     text,
@@ -287,11 +334,12 @@ server.post("/messages", (req, res) => {
 // Get all messages in a conversation
 server.get("/messages", (req, res) => {
   const { conversation_id } = req.query;
+  console.log(conversation_id)
 
   // Retrieve all messages with matching conversation_id
   const messages = router.db
     .get("messages")
-    .filter({ conversation_id: parseInt(conversation_id) })
+    .filter({ conversation_id: conversation_id })
     .value();
 
   res.json(messages);
