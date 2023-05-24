@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "username": "mhd",
+      "displayName": "mhd",
       "email": "example@gmail.com",
       "password": "12345",
       "description": "my name is mohammad"
@@ -12,20 +12,49 @@
       "displayName": "hi",
       "email": "hi@gmail.com",
       "password": "123",
-      "description": "hrllo"
+      "description": "hello"
     },
     {
       "id": 1684262608484,
       "displayName": "hhhhh",
       "email": "hh@gmail.com",
       "password": "123",
-      "description": "nn"
+      "description": "i'm a nice person"
+    },
+    {
+      "id": 1684262181071,
+      "displayName": "user1",
+      "email": "user1@example.com",
+      "password": "password1",
+      "description": "I am user 1"
+    },
+    {
+      "id": 1684262181072,
+      "displayName": "user2",
+      "email": "user2@example.com",
+      "password": "password2",
+      "description": "I am user 2"
+    },
+    {
+      "id": 1684262181073,
+      "displayName": "user3",
+      "email": "user3@example.com",
+      "password": "password3",
+      "description": "I am user 3"
     }
   ],
   "chats": [
     {
       "id": "asd",
       "participants": []
+    }
+  ],
+  "messages": [
+    {
+      "conversation_id": 124654,
+      "sender_id": 122,
+      "text": "text",
+      "created_at": "1"
     }
   ],
   "friendRequests": [
@@ -39,7 +68,27 @@
       "id": 1684918175113,
       "sender_id": 1,
       "recipient_id": 1684262181070,
-      "status": "rejected"
+      "status": "accepted"
+    },
+    {
+      "id": 16849181754345,
+      "sender_id": 1684262181070,
+      "recipient_id": 1684262608484,
+      "status": "accepted"
+    },
+    {
+      "id": 1684941152275,
+      "sender_id": 1684262181071,
+      "recipient_id": 1684262181072,
+      "status": "pending",
+      "created_at": "2023-05-24T15:12:32.275Z"
+    },
+    {
+      "id": 1684941654135,
+      "sender_id": 1684262181071,
+      "recipient_id": 1684262181070,
+      "status": "accepted",
+      "created_at": "2023-05-24T15:20:54.135Z"
     }
   ]
 }

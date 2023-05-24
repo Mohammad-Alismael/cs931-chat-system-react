@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   Button,
@@ -18,17 +18,59 @@ import {
 } from "reactstrap";
 import Friend from "./components/Friend/Friend.jsx";
 import DropdownWithSearchBar from "./components/dropdownWithSearchBar/DropdownWithSearchBar.jsx";
+import {
+  acceptFriendRequest,
+  createFriendRequest,
+  deleteFriendRequest,
+  fetchAcceptedFriendRequests,
+  getFriendRequestsByUserId,
+  rejectFriendRequest,
+} from "../../lib/friendRequests.js";
+import GlobalContext from "../../utils/context/globalContext.jsx";
 
 FriendsPage.propTypes = {};
 
-function FriendsTab({ data }) {
+function FriendsTab() {
+  const { user } = useContext(GlobalContext);
+
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [requests, setRequests] = useState([]);
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-  const filteredDropdownItems = data.filter((item) =>
-    item.username.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredDropdownItems = requests?.filter((item) =>
+    item.user.displayName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    async function fetchData() {
+      setLoading(true);
+      try {
+        let data = await fetchAcceptedFriendRequests(
+          user.uid,
+          abortController.signal
+        );
+        console.log("accepted friend request", data);
+        setRequests(data);
+        setLoading(false);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Request was aborted, handle it here
+        } else {
+          // Handle other errors here
+        }
+      }
+    }
+
+    fetchData().then(console.log);
+
+    return () => {
+      abortController.abort();
+    };
+  }, []);
   return (
     <Row>
       <Row className="my-4 mx-1">
@@ -48,8 +90,8 @@ function FriendsTab({ data }) {
           overflowY: "scroll",
         }}
       >
-        {filteredDropdownItems.map(({ username }, index) => {
-          return <Friend.Accepted key={index} username={username} />;
+        {filteredDropdownItems.map(({ user }, index) => {
+          return <Friend.Accepted key={index} username={user.displayName} />;
         })}
       </Row>
     </Row>
@@ -57,18 +99,88 @@ function FriendsTab({ data }) {
 }
 
 function FriendsPage(props) {
+  const { user } = useContext(GlobalContext);
   const [activeTab, setActiveTab] = useState("1");
-  const [accpetedFriendRequest, setAccpetedFriendRequest] = useState([
-    {
-      username: "mhd",
-    },
-    {
-      username: "ahmed",
-    },
-    {
-      username: "zak",
-    },
-  ]);
+  const [loading, setLoading] = useState(true);
+  const [requests, setRequests] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const makeFriendRequest = () => {
+    createFriendRequest(user.uid, selectedUser.id).then((data) => {
+      setSelectedUser(null);
+      setRequests({
+        ...requests,
+        sentRequests: [...requests.sentRequests, data],
+      });
+    });
+  };
+
+  const handDeleteRequest = (id) => {
+    deleteFriendRequest(id).then((data) => {
+      const newSentRequests = requests.sentRequests.filter((item) => {
+        return item.id !== id;
+      });
+      setRequests({
+        ...requests,
+        sentRequests: [...newSentRequests],
+      });
+    });
+  };
+
+  const handleAcceptRequest = (id) => {
+    acceptFriendRequest(id).then((data) => {
+      const newReceivedRequests = requests.receivedRequests.filter((item) => {
+        return item.id !== id;
+      });
+      setRequests({
+        ...requests,
+        receivedRequests: [...newReceivedRequests],
+      });
+    });
+  };
+  const handleRejectRequest = (id) => {
+    rejectFriendRequest(id).then((data) => {
+      const newReceivedRequests = requests.receivedRequests.filter((item) => {
+        return item.id !== id;
+      });
+      setRequests({
+        ...requests,
+        receivedRequests: [...newReceivedRequests],
+      });
+    });
+  };
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    async function fetchData() {
+      setLoading(true);
+      try {
+        let data = await getFriendRequestsByUserId(
+          user.uid,
+          "pending",
+          abortController.signal
+        );
+        console.log("pending friend request", data);
+        setRequests(data);
+        setLoading(false);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Request was aborted, handle it here
+        } else {
+          // Handle other errors here
+        }
+      }
+    }
+
+    fetchData().then(console.log);
+
+    return () => {
+      abortController.abort();
+    };
+  }, []);
+
+  if (loading) return <p style={{ color: "#fff" }}>loading ...</p>;
   return (
     <Container>
       <Nav tabs>
@@ -88,28 +200,26 @@ function FriendsPage(props) {
             Friends
           </NavLink>
         </NavItem>
-        {/*<NavItem>*/}
-        {/*  <NavLink*/}
-        {/*    className={activeTab == "3" ? "active" : ""}*/}
-        {/*    onClick={() => setActiveTab("3")}*/}
-        {/*  >*/}
-        {/*    Friends you may know*/}
-        {/*  </NavLink>*/}
-        {/*</NavItem>*/}
+        <NavItem>
+          <NavLink
+            className={activeTab == "3" ? "active" : ""}
+            onClick={() => setActiveTab("3")}
+          >
+            Received Requests
+          </NavLink>
+        </NavItem>
       </Nav>
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
           <Row>
             <Col>
-
-              <Row
-                  className="my-2 p-2"
-              >
+              <Row className="my-2 p-2">
                 <Col xs={7} md={10}>
-                  <DropdownWithSearchBar />
+                  <DropdownWithSearchBar onSelect={setSelectedUser} />
                 </Col>
                 <Col xs={5} md={2} className="d-flex align-items-center">
                   <Button
+                    onClick={makeFriendRequest}
                     style={{
                       background: "linear-gradient(to right, #f84a00, #fdce00)",
                       border: "none",
@@ -127,23 +237,45 @@ function FriendsPage(props) {
                   alignContent: "flex-start",
                 }}
               >
-                <Friend />
-                <Friend />
+                {requests?.sentRequests.map((val, i) => {
+                  return (
+                    <Friend.Sender
+                      key={i}
+                      data={val}
+                      handleDelete={handDeleteRequest}
+                    />
+                  );
+                })}
               </Row>
             </Col>
           </Row>
         </TabPane>
         <TabPane tabId="2">
-          <FriendsTab data={accpetedFriendRequest} />
+          <FriendsTab />
         </TabPane>
 
-        {/*<TabPane tabId="3">*/}
-        {/*  <Row>*/}
-        {/*    <Col>*/}
-        {/*      <h3>Coming soon, we are working on it</h3>*/}
-        {/*    </Col>*/}
-        {/*  </Row>*/}
-        {/*</TabPane>*/}
+        <TabPane tabId="3">
+          <Row
+            className="mx-1"
+            style={{
+              height: "480px",
+              overflowY: "scroll",
+              alignContent: "flex-start",
+              padding: "1rem",
+            }}
+          >
+            {requests?.receivedRequests.map((val, i) => {
+              return (
+                <Friend.Recipient
+                  key={i}
+                  data={val}
+                  handleAccept={handleAcceptRequest}
+                  handleReject={handleRejectRequest}
+                />
+              );
+            })}
+          </Row>
+        </TabPane>
       </TabContent>
     </Container>
   );

@@ -4,7 +4,7 @@ const GlobalContext = createContext({});
 
 export const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState({
-    uid: "",
+    uid: "1684262181070",
     email: "",
     displayName: "",
   });
