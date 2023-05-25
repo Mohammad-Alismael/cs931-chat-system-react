@@ -46,9 +46,10 @@ function ChatLayout(props) {
     const fetchData = async () => {
       try {
         const chatData = await fetchChatsByUserId(user.uid);
-        const contactData = await getContacts(user.uid);
+        // const contactData = await getContacts(user.uid);
+        // console.log({chatData, contactData})
         setChats(chatData);
-        setContacts(contactData);
+        // setContacts(contactData);
         setLoading(true);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -57,7 +58,7 @@ function ChatLayout(props) {
     };
 
     fetchData().then(console.log);
-  }, []);
+  }, [navigate]);
 
   if (!loading) return <p style={{ color: "#fff" }}>loading ...</p>;
   return (
@@ -74,7 +75,7 @@ function ChatLayout(props) {
         >
           <SearchBar openSettings={toggleSettings} />
           <Chats />
-          <Contacts />
+          {/*<Contacts />*/}
           <Settings
             open={openUserProfile}
             toggle={toggleSettings}

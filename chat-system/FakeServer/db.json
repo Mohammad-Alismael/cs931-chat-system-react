@@ -1,197 +1,60 @@
 {
   "users": [
     {
-      "id": 1,
-      "displayName": "mhd",
-      "email": "example@gmail.com",
-      "password": "12345",
-      "description": "my name is mohammad"
-    },
-    {
-      "id": 1684262181070,
-      "displayName": "hi",
-      "email": "hi@gmail.com",
-      "password": "123",
-      "description": "hello"
-    },
-    {
-      "id": 1684262608484,
-      "displayName": "hhhhh",
-      "email": "hh@gmail.com",
-      "password": "123",
-      "description": "i'm a nice person"
-    },
-    {
-      "id": 1684262181071,
+      "id": 1685011735074,
       "displayName": "user1",
-      "email": "user1@example.com",
-      "password": "password1",
-      "description": "I am user 1"
+      "email": "user1@gmail.com",
+      "password": "123",
+      "description": "this is user1"
     },
     {
-      "id": 1684262181072,
+      "id": 1685011766681,
       "displayName": "user2",
-      "email": "user2@example.com",
-      "password": "password2",
-      "description": "I am user 2"
-    },
-    {
-      "id": 1684262181073,
-      "displayName": "user3",
-      "email": "user3@example.com",
-      "password": "password3",
-      "description": "I am user 3"
+      "email": "user2@gmail.com",
+      "password": "123",
+      "description": "this is user2 again"
     }
   ],
   "chats": [
     {
-      "id": "dh9y2892w8k",
+      "id": "h51g3a03ptp",
       "participants": [
-        1684262181070,
-        1684262608484
+        1685011735074,
+        1685011766681
       ],
-      "created_at": "2023-05-24T20:11:10.180Z"
+      "created_at": "2023-05-25T11:01:38.505Z"
     }
   ],
   "messages": [
     {
-      "id": 5452154,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "hello",
-      "created_at": "1"
+      "id": 1685012516745,
+      "conversation_id": "h51g3a03ptp",
+      "sender_id": 1685011766681,
+      "text": "my name is mhd",
+      "created_at": "2023-05-25T11:01:56.711Z"
     },
     {
-      "id": 5452153,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262608484,
-      "text": "hi",
-      "created_at": "1"
+      "id": 1685012678400,
+      "conversation_id": "h51g3a03ptp",
+      "sender_id": 1685011735074,
+      "text": "yess",
+      "created_at": "2023-05-25T11:04:38.390Z"
     },
     {
-      "id": 1684961242825,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": "1684262181070",
-      "text": "vfbg",
-      "created_at": "2023-05-24T20:47:22.795Z"
-    },
-    {
-      "id": 1684961279665,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": "1684262181070",
-      "text": "ioi",
-      "created_at": "2023-05-24T20:47:59.644Z"
-    },
-    {
-      "id": 1684961319241,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": "1684262181070",
-      "text": "jjk",
-      "created_at": "2023-05-24T20:48:39.214Z"
-    },
-    {
-      "id": 1684961344802,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": "1684262181070",
-      "text": "ghfhfg",
-      "created_at": "2023-05-24T20:49:04.779Z"
-    },
-    {
-      "id": 1684961348239,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": "1684262181070",
-      "text": "ghfhfghjf",
-      "created_at": "2023-05-24T20:49:08.219Z"
-    },
-    {
-      "id": 1684961401276,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "dfgfgf",
-      "created_at": "2023-05-24T20:50:01.255Z"
-    },
-    {
-      "id": 1684961404141,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "fgdfgdfgdfgfdgdfgfgf",
-      "created_at": "2023-05-24T20:50:04.122Z"
-    },
-    {
-      "id": 1684961406523,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "fgdfgdfgdfgfdgdfgfgf",
-      "created_at": "2023-05-24T20:50:06.496Z"
-    },
-    {
-      "id": 1684961407005,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "fgdfgdfgdfgfdgdfgfgf",
-      "created_at": "2023-05-24T20:50:06.985Z"
-    },
-    {
-      "id": 1684961407692,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "fgdfgdfgdfgfdgdfgfgf",
-      "created_at": "2023-05-24T20:50:07.673Z"
-    },
-    {
-      "id": 1684961408198,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "fgdfgdfgdfgfdgdfgfgf",
-      "created_at": "2023-05-24T20:50:08.178Z"
-    },
-    {
-      "id": 1684961443604,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "my name is mhs",
-      "created_at": "2023-05-24T20:50:43.582Z"
-    },
-    {
-      "id": 1684961467477,
-      "conversation_id": "dh9y2892w8k",
-      "sender_id": 1684262181070,
-      "text": "my name is mhsfgfg",
-      "created_at": "2023-05-24T20:51:07.441Z"
+      "id": 1685012695723,
+      "conversation_id": "h51g3a03ptp",
+      "sender_id": 1685011766681,
+      "text": "nice",
+      "created_at": "2023-05-25T11:04:55.704Z"
     }
   ],
   "friendRequests": [
     {
-      "id": 1,
-      "sender_id": 1,
-      "recipient_id": 2,
-      "status": "pending"
-    },
-    {
-      "id": 1684918175113,
-      "sender_id": 1,
-      "recipient_id": 1684262181070,
-      "status": "accepted"
-    },
-    {
-      "id": 16849181754345,
-      "sender_id": 1684262181070,
-      "recipient_id": 1684262608484,
-      "status": "accepted"
-    },
-    {
-      "id": 1684941152275,
-      "sender_id": 1684262181071,
-      "recipient_id": 1684262181072,
-      "status": "pending",
-      "created_at": "2023-05-24T15:12:32.275Z"
-    },
-    {
-      "id": 1684941654135,
-      "sender_id": 1684262181071,
-      "recipient_id": 1684262181070,
+      "id": 1685011802590,
+      "sender_id": 1685011735074,
+      "recipient_id": 1685011766681,
       "status": "accepted",
-      "created_at": "2023-05-24T15:20:54.135Z"
+      "created_at": "2023-05-25T10:50:02.590Z"
     }
   ]
 }

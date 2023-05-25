@@ -78,16 +78,6 @@ const Sender = ({data, handleDelete}) => {
           <Button size="sm" style={buttonStyle} onClick={()=>(handleDelete(id))}>
             Cancel
           </Button>
-          {/*<Button*/}
-          {/*    size="sm"*/}
-          {/*    style={{*/}
-          {/*      color: "#000",*/}
-          {/*      background: "rgba(229,229,235,1)",*/}
-          {/*      borderColor: "rgba(229,229,235,1)",*/}
-          {/*    }}*/}
-          {/*>*/}
-          {/*  Remove*/}
-          {/*</Button>*/}
         </div>
       </div>
   );
@@ -101,14 +91,6 @@ const Recipient = ({data,handleAccept,handleReject}) => {
     status,
   } = data;
 
-  // const acceptRequest = (e) => {
-  //   e.preventDefault()
-  //   acceptFriendRequest(id).then(console.log)
-  // }
-  // const rejectRequest = (e) => {
-  //   e.preventDefault()
-  //   rejectFriendRequest(id).then(console.log)
-  // }
   return (
       <div
           className="d-flex align-items-center justify-content-between rounded my-1 p-2"

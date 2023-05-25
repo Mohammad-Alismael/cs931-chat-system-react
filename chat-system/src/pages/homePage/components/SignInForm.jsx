@@ -1,19 +1,22 @@
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { toast } from "react-toastify";
 import {handleLogin} from "../../../lib/user.js";
 import {useNavigate} from "react-router-dom";
+import GlobalContext from "../../../utils/context/globalContext.jsx";
 
 const SignInForm = () => {
-  const [user, setUser] = useState({
+    const {setUser} = useContext(GlobalContext);
+  const [user_, setUser_] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate()
   const handleSubmit = async (e) => {
       e.preventDefault()
-      handleLogin(user).then(()=>{
-          setUser({
+      handleLogin(user_).then((data)=>{
+          setUser({uid: data, ...user_ })
+          setUser_({
               email: "",
               password: "",
           })
@@ -24,7 +27,7 @@ const SignInForm = () => {
   };
 
   const handleValue = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser_({ ...user_, [e.target.name]: e.target.value });
   };
 
   return (

@@ -55,5 +55,16 @@ const Contact = ({ userObject }) => {
   );
 };
 
+const Empty = () => {
+  return (
+      <div data-opened={false} className={styles.container}>
+        <div className={styles.innerContainer}>
+          <p className={styles.name}>you have no friends to chat with</p>
+        </div>
+      </div>
+  );
+};
+
 UserChatCard.Contact = Contact;
+UserChatCard.Empty = Empty;
 export default UserChatCard;

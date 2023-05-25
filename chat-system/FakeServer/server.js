@@ -27,7 +27,7 @@ server.post("/signup", (req, res) => {
   const existingUser = router.db.get("users").find({ email }).value();
 
   if (existingUser) {
-    res.status(400).json({ error: "Username already exists" });
+    return res.status(400).json({ error: "Username already exists" });
   } else {
     const newUser = {
       id: Date.now(),
@@ -37,32 +37,11 @@ server.post("/signup", (req, res) => {
       description,
     };
     router.db.get("users").push(newUser).write();
-    res.json({ message: "Sign up successful", uid: newUser.id });
+    return res
+      .status(200)
+      .json({ message: "Sign up successful", uid: newUser.id });
   }
 });
-
-// const updatedData = {
-//   id: 1684262181070,
-//   displayName: "hi",
-//   email: "hi@gmail.com",
-//   password: "123",
-//   description: "hello, updated description"
-// };
-//
-// fetch('http://localhost:3000/users/1684262181070', {
-//   method: 'PUT',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(updatedData),
-// })
-//     .then(response => response.json())
-//     .then(data => {
-//       console.log('Updated user:', data);
-//     })
-//     .catch(error => {
-//       console.error('Error updating user:', error);
-//     });
 
 server.post("/friends/request", (req, res) => {
   const { sender_id, recipient_id } = req.body;
@@ -208,7 +187,16 @@ server.put("/friends/request/accept", (req, res) => {
   if (friendRequest) {
     friendRequest.status = "accepted";
     router.db.get("friendRequests").write();
+    const newChatId = Math.random().toString(36).substring(2, 15);
 
+    const newChat = {
+      id: newChatId,
+      participants: [friendRequest.sender_id, friendRequest.recipient_id],
+      created_at: new Date().toISOString(), // Add the current date and time as the value for created_at
+    };
+
+    // Add the new chat to the "chats" array
+    router.db.get("chats").push(newChat).write();
     res.json({ message: "Friend request accepted", id: friendRequest.id });
   } else {
     res.status(404).json({ error: "Friend request not found" });
@@ -249,21 +237,6 @@ server.post("/chats", (req, res) => {
 
   res.json(newChat);
 });
-// server.get("/chats", (req, res) => {
-//   const { user_id } = req.query;
-//
-//   // Retrieve chats that contain the specified user_id in participants array
-//   const chats = router.db
-//     .get("chats")
-//     .filter((chat) =>
-//       chat.participants.some(
-//         (participant) => participant.user_id === parseInt(user_id)
-//       )
-//     )
-//     .value();
-//
-//   res.json(chats);
-// });
 
 server.get("/chats", (req, res) => {
   const { user_id } = req.query;
@@ -290,25 +263,25 @@ server.get("/chats", (req, res) => {
 });
 
 server.get("/chats/:chat_id/:user_id", (req, res) => {
-  const { chat_id,user_id } = req.params;
+  const { chat_id, user_id } = req.params;
   console.log({ chat_id });
 
   const chats = router.db
-      .get("chats")
-      .filter((chat) => chat.id === chat_id)
-      .map((chat) => {
-        const otherParticipants = chat.participants
-            .filter((participantId) => participantId !== parseInt(user_id))
-            .map((participantId) =>
-                router.db.get("users").find({ id: participantId }).value()
-            );
+    .get("chats")
+    .filter((chat) => chat.id === chat_id)
+    .map((chat) => {
+      const otherParticipants = chat.participants
+        .filter((participantId) => participantId !== parseInt(user_id))
+        .map((participantId) =>
+          router.db.get("users").find({ id: participantId }).value()
+        );
 
-        return {
-          id: chat.id,
-          participants: otherParticipants,
-        };
-      })
-      .value();
+      return {
+        id: chat.id,
+        participants: otherParticipants,
+      };
+    })
+    .value();
 
   res.json(chats);
 });
@@ -334,7 +307,7 @@ server.post("/messages", (req, res) => {
 // Get all messages in a conversation
 server.get("/messages", (req, res) => {
   const { conversation_id } = req.query;
-  console.log(conversation_id)
+  console.log(conversation_id);
 
   // Retrieve all messages with matching conversation_id
   const messages = router.db
@@ -345,56 +318,64 @@ server.get("/messages", (req, res) => {
   res.json(messages);
 });
 
-server.get("/contacts/:user_id", (req, res) => {
-  const { user_id } = req.params;
-
-  // Retrieve friend requests where the user is the sender and the status is "accepted"
-  const acceptedFriendRequests = router.db
-    .get("friendRequests")
-    .filter({ sender_id: parseInt(user_id), status: "accepted" })
-    .value();
-
-  // Retrieve the IDs of the users who have accepted friend requests
-  const acceptedUserIds = acceptedFriendRequests.map(
-    (request) => request.recipient_id
-  );
-
-  // Retrieve chats where the user is one of the participants
-  const userChats = router.db
-    .get("chats")
-    .filter((chat) =>
-      chat.participants.some(
-        (participant) => participant.user_id === parseInt(user_id)
-      )
-    )
-    .value();
-
-  // Retrieve the IDs of the users who the user has chats with
-  const userChatUserIds = userChats.reduce((userIds, chat) => {
-    chat.participants.forEach((participant) => {
-      if (
-        participant.user_id !== parseInt(user_id) &&
-        !userIds.includes(participant.user_id)
-      ) {
-        userIds.push(participant.user_id);
-      }
-    });
-    return userIds;
-  }, []);
-
-  // Retrieve the IDs of contacts who have accepted friend requests but with whom the user has not yet created a chat
-  const contactUserIds = acceptedUserIds.filter(
-    (userId) => !userChatUserIds.includes(userId)
-  );
-
-  // Retrieve the contact user objects based on the contact user IDs
-  const contacts = router.db
-    .get("users")
-    .filter((user) => contactUserIds.includes(user.id))
-    .value();
-
-  res.json(contacts);
-});
+// server.get("/contacts/:user_id", (req, res) => {
+//   const { user_id } = req.params;
+//   // Retrieve friend requests where the user is the sender and the status is "accepted"
+//   const acceptedFriendRequests = router.db
+//     .get("friendRequests")
+//     .filter(
+//       (friendRequest) =>
+//         friendRequest.status === "accepted" &&
+//         (friendRequest.sender_id === parseInt(user_id) ||
+//           friendRequest.recipient_id === parseInt(user_id))
+//     )
+//     .value();
+//
+//
+//   // Retrieve the IDs of the users who have accepted friend requests
+//   const acceptedUserIds = acceptedFriendRequests.map(
+//     (request) => request.recipient_id
+//   );
+//
+//   // Retrieve chats where the user is one of the participants
+//   const userChats = router.db
+//     .get("chats")
+//     .filter((chat) =>
+//       chat.participants.some(
+//         (participant) => participant === parseInt(user_id)
+//       )
+//     )
+//     .value();
+//
+//   // Retrieve the IDs of the users who the user has chats with
+//   const userChatUserIds = userChats.reduce((userIds, chat) => {
+//     chat.participants.forEach((participant) => {
+//       console.log(participant)
+//       if (
+//         participant !== parseInt(user_id) &&
+//         !userIds.includes(participant)
+//       ) {
+//         userIds.push(participant);
+//       }
+//     });
+//     return userIds;
+//   }, []);
+//   console.log('userChatUserIds',userChatUserIds)
+//   console.log('acceptedUserIds', acceptedUserIds)
+//   // Retrieve the IDs of contacts who have accepted friend requests but with whom the user has not yet created a chat
+//   const contactUserIds = acceptedUserIds.filter(
+//     (userId) => userChatUserIds.includes(userId)
+//   );
+//   console.log('contactUserIds', contactUserIds)
+//
+//   // Retrieve the contact user objects based on the contact user IDs
+//   const contacts = router.db
+//     .get("users")
+//     .filter((user) => contactUserIds.includes(user.id))
+//     .value()
+//
+//   res.json(contacts);
+// });
 
 server.use(router);
 server.listen(3800, () => {

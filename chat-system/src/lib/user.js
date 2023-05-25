@@ -7,6 +7,7 @@ const handleLogin = async (data) => {
     const response = await api.post("/login", data);
     // Handle successful login
     console.log(response.data);
+    return response.data.uid
   } catch (error) {
     // Handle login error
     const { response } = error;
@@ -17,12 +18,16 @@ const handleLogin = async (data) => {
 const handleSignUp = async (data) => {
   try {
     const response = await api.post("/signup", data);
-    // Handle successful login
-    console.log(response.data);
+    if (response.status === 200) {
+      console.log(response.data);
+      return response.data;
+    }
   } catch (error) {
-    // Handle login error
-    console.error(error);
+    const { response } = error;
+    console.log(response);
+    throw new Error(response.data.error);
   }
 };
+
 
 export { handleLogin, handleSignUp };

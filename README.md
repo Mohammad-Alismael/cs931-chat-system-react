@@ -16,20 +16,23 @@ The Social Networking App is a web-based application that allows users to connec
     - Users can send friend requests to other users.
     - The recipient of the friend request will receive a notification.
 
-4. Searching Through User List
-    - Users can search for other users based on name or location.
-    - The search results display user names and profile pictures.
+[//]: # (4. Searching Through User List)
 
-5. Creating Chats
+[//]: # (    - Users can search for other users based on name or location.)
+
+[//]: # (    - The search results display user names and profile pictures.)
+
+4. Creating Chats
     - Users can create chats with one or more friends.
     - Chats allow users to send messages, images, and files.
     - Users can leave and rejoin chats at any time.
 
-6. Updating 'About' Description
+5. Updating 'About' Description
     - Users can update their profile 'About' section to add a description about themselves.
 
-7. Listing Contacts
-    - Users can view a list of contacts who have accepted their friend requests but with whom they have not yet created a chat.
+[//]: # (7. Listing Contacts)
+
+[//]: # (    - Users can view a list of contacts who have accepted their friend requests but with whom they have not yet created a chat.)
 
 ## Requirements
 

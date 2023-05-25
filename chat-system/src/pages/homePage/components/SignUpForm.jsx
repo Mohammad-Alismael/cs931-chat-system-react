@@ -23,11 +23,14 @@ const SignUpForm = () => {
       return; // Exit the function if any field is empty
     }
 
-    if (user.password !== user.confirmPassword)
-      toast("password and confirm password don't match");
+    if (user.password !== user.confirmPassword) {
+        toast("password and confirm password don't match");
+        return
+    }
+
     const submittedObject = user;
     delete submittedObject.confirmPassword;
-    handleSignUp(submittedObject).then(()=>{
+    handleSignUp(submittedObject).then((data)=>{
         setUser({
             displayName: "",
             email: "",
@@ -35,6 +38,9 @@ const SignUpForm = () => {
             confirmPassword: "",
             description: "",
         })
+        toast(data.message)
+    }).catch((error)=>{
+        toast.error(error.message)
     });
   };
   const handleValue = (e) => {
@@ -46,30 +52,35 @@ const SignUpForm = () => {
       <span>or use your email for registration</span>
       <input
         onChange={handleValue}
+        value={user.displayName}
         name="displayName"
         type="text"
         placeholder="Display Name"
       />
       <input
         onChange={handleValue}
+        value={user.email}
         name="email"
         type="email"
         placeholder="Email"
       />
       <input
         onChange={handleValue}
+        value={user.password}
         name="password"
         type="password"
         placeholder="Password"
       />
       <input
         onChange={handleValue}
+        value={user.confirmPassword}
         name="confirmPassword"
         type="password"
         placeholder="Confirm Password"
       />
       <input
         onChange={handleValue}
+        value={user.description}
         name="description"
         type="textarea"
         placeholder="Tell Us More About Yourself"

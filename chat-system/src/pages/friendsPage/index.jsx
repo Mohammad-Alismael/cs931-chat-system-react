@@ -30,7 +30,7 @@ import GlobalContext from "../../utils/context/globalContext.jsx";
 
 FriendsPage.propTypes = {};
 
-function FriendsTab() {
+function FriendsTab({activeTab}) {
   const { user } = useContext(GlobalContext);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -70,7 +70,7 @@ function FriendsTab() {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [activeTab]);
   return (
     <Row>
       <Row className="my-4 mx-1">
@@ -108,6 +108,7 @@ function FriendsPage(props) {
   const makeFriendRequest = () => {
     createFriendRequest(user.uid, selectedUser.id).then((data) => {
       setSelectedUser(null);
+      // missing sender object
       setRequests({
         ...requests,
         sentRequests: [...requests.sentRequests, data],
@@ -251,7 +252,7 @@ function FriendsPage(props) {
           </Row>
         </TabPane>
         <TabPane tabId="2">
-          <FriendsTab />
+          <FriendsTab activeTab={activeTab}/>
         </TabPane>
 
         <TabPane tabId="3">

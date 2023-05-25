@@ -9,8 +9,6 @@ import {AppContext} from "../utils/context/AppContext.jsx";
 
 function Contacts(props) {
     const { contacts } = useContext(AppContext);
-
-    console.log(contacts)
     return (
     <Row>
       <h4 className={styles.header}>Contacts</h4>
@@ -20,6 +18,8 @@ function Contacts(props) {
             <UserChatCard.Contact key={i} userObject={val} />
           );
         })}
+          {contacts.length === 0 ? <UserChatCard.Empty /> : null}
+
       </Col>
     </Row>
   );
