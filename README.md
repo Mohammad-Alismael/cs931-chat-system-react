@@ -3,7 +3,9 @@
 ## Introduction
 
 The Social Networking App is a web-based application that allows users to connect with friends, send friend requests, search for users, create and participate in chats, update their profile information, and manage their contact list.
-
+## User Guide
+i posted a google srive link to show the apllication visually
+(https://drive.google.com/file/d/1lkcXPACKyy6VJWT0zGzBhfEV2xxUsbzf/view?usp=sharing)
 ## Features
 
 1. User Login
